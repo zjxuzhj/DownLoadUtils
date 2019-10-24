@@ -1,10 +1,6 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: "config.gradle"
 //﻿buildscript里是gradle脚本执行所需依赖，分别是对应的maven库和插件
 buildscript {
-    ext.kotlin_version = '1.3.50'
     repositories {
-        //symtabfileuploader(bugly符号表上传)
         google()
         jcenter()
         maven { url "https://jitpack.io" }
@@ -13,12 +9,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
-        classpath "com.tencent.bugly:tinker-support:1.2.0"
-        classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50"
         classpath 'me.tatarka:gradle-retrolambda:3.4.0'
-        classpath "com.mob.sdk:MobSDK:2018.0319.1724"
     }
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
@@ -37,9 +29,6 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         mavenCentral()
-
-        //Bmob的maven仓库地址--已经通过aar集成
-//        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
 }
 
