@@ -13,8 +13,9 @@
 
         <ImageView
             android:id="@+id/iv_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="280dp"
+            android:scaleType="fitXY"
+            android:layout_height="130dp"
             android:src="@drawable/lib_update_app_top_bg" />
 
         <LinearLayout

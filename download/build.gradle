@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.zjxuzhj'
+group = 'com.github.zjxuzhj'
 
 android {
     compileSdkVersion 28
@@ -19,6 +19,9 @@ android {
     }
 
     buildTypes {
+        debug {
+
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

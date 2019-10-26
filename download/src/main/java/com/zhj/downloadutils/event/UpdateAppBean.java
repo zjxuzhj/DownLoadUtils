@@ -12,7 +12,7 @@ public class UpdateAppBean implements Serializable {
      * update : Yes
      * new_version : xxxxx
      * apk_url : http://cdn.the.url.of.apk/or/patch
-     * update_log : xxxx
+     * need_update_log : xxxx
      * delta : false
      * new_md5 : xxxxxxxxxxxxxx
      * target_size : 601132
@@ -24,7 +24,9 @@ public class UpdateAppBean implements Serializable {
     //新app下载地址
     private String apk_file_url;
     //更新日志
-    private String update_log;
+    private String need_update_log;
+    //必须更新的更新日志
+    private String mustUpdateLog;
     //配置默认更新dialog 的title
     private String update_def_dialog_title;
     //新app大小
@@ -86,12 +88,12 @@ public class UpdateAppBean implements Serializable {
         return this;
     }
 
-    public String getUpdateLog() {
-        return update_log;
+    public String getNeedUpdateLog() {
+        return need_update_log;
     }
 
-    public UpdateAppBean setUpdateLog(String update_log) {
-        this.update_log = update_log;
+    public UpdateAppBean setNeedUpdateLog(String update_log) {
+        this.need_update_log = update_log;
         return this;
     }
 
@@ -138,4 +140,11 @@ public class UpdateAppBean implements Serializable {
         return mDismissNotificationProgress;
     }
 
+    public String getMustUpdateLog() {
+        return mustUpdateLog;
+    }
+
+    public void setMustUpdateLog(String mustUpdateLog) {
+        this.mustUpdateLog = mustUpdateLog;
+    }
 }

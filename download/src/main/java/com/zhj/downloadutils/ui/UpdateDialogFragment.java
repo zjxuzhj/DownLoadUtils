@@ -186,7 +186,12 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
             final String dialogTitle = mUpdateApp.getUpdateDefDialogTitle();
             final String newVersion = mUpdateApp.getNewVersion();
             final String targetSize = mUpdateApp.getTargetSize();
-            final String updateLog = mUpdateApp.getUpdateLog();
+            final String updateLog;
+            if(mUpdateApp.isConstraint()){
+                updateLog = mUpdateApp.getMustUpdateLog();
+            } else{
+                updateLog = mUpdateApp.getNeedUpdateLog();
+            }
 
             String msg = "";
 
