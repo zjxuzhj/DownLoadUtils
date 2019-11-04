@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
 
+
             if (TextUtils.isEmpty(path)) {
                 path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
             }
