@@ -22,7 +22,7 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by HongJay on 2019-10-26.
  */
-class DownLoadUtils internal constructor(private val activity: AppCompatActivity) {
+class DownLoadUtils(private val activity: AppCompatActivity) {
 
     /**
      * 跳转到更新页面
