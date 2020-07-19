@@ -1,2 +1,3 @@
+include ':locallog'
 include ':api'
 include ':download'
