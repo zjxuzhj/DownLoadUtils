@@ -57,7 +57,7 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
     private UpdateAppBean mUpdateApp;
     public NumberProgressBar mNumberProgressBar;
     private ImageView mIvClose;
-    private TextView mTitleTextView;
+    private TextView mTitleTextView, mVersionName;
     /**
      * 回调
      */
@@ -156,6 +156,8 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
         mContentTextView = view.findViewById(R.id.tv_update_info);
         //标题
         mTitleTextView = view.findViewById(R.id.tv_title);
+        //更新版本号
+        mVersionName = view.findViewById(R.id.tv_version_name);
         //更新按钮
         mUpdateOkButton = view.findViewById(R.id.btn_ok);
         //进度条
@@ -187,9 +189,9 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
             final String newVersion = mUpdateApp.getNewVersion();
             final String targetSize = mUpdateApp.getTargetSize();
             final String updateLog;
-            if(mUpdateApp.isConstraint()){
+            if (mUpdateApp.isConstraint()) {
                 updateLog = mUpdateApp.getMustUpdateLog();
-            } else{
+            } else {
                 updateLog = mUpdateApp.getNeedUpdateLog();
             }
 
@@ -207,6 +209,8 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
             mContentTextView.setText(msg);
             //标题
             mTitleTextView.setText(TextUtils.isEmpty(dialogTitle) ? String.format("是否升级到%s版本？", newVersion) : dialogTitle);
+            //版本号
+            mVersionName.setText("V"+mUpdateApp.getNewVersion());
             //强制更新
             if (mUpdateApp.isConstraint()) {
                 mLlClose.setVisibility(View.GONE);
