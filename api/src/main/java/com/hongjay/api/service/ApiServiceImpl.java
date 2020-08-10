@@ -3,6 +3,7 @@ package com.hongjay.api.service;
 import android.text.TextUtils;
 
 import com.hongjay.api.ApiConfig;
+import com.hongjay.api.baseurl.RetrofitUrlManager;
 
 import java.io.IOException;
 import java.util.Map;
@@ -22,19 +23,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Retrofit的ApiServiceImpl实现
  */
 public class ApiServiceImpl {
-    private volatile static ApiServiceImpl s_Instance;
 
-    public static ApiServiceImpl getInstance() {
-        if (s_Instance == null) {
-            synchronized (ApiServiceImpl.class) {
-                if (s_Instance == null) {
-                    s_Instance = new ApiServiceImpl(ApiConfig.getInstance());
-                }
-            }
-        }
-        return s_Instance;
-    }
+//    private volatile static ApiServiceImpl s_Instance;
+//
+//    public static ApiServiceImpl getInstance() {
+//        if (s_Instance == null) {
+//            synchronized (ApiServiceImpl.class) {
+//                if (s_Instance == null) {
+//                    s_Instance = new ApiServiceImpl(ApiConfig.getInstance());
+//                }
+//            }
+//        }
+//        return s_Instance;
+//    }
 
+    /**
+     * create方法全局应只调用一次，否则会有多个Impl实例，导致创建多个retrofit
+     */
     public static ApiServiceImpl createApiServiceImpl(ApiConfig apiConfig) {
         ApiServiceImpl apiServiceImpl = new ApiServiceImpl(apiConfig);
         return apiServiceImpl;
@@ -54,7 +59,7 @@ public class ApiServiceImpl {
                 throw new IllegalArgumentException("base url must be '/' ");
             }
         }
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient.Builder builder = RetrofitUrlManager.getInstance().with(new OkHttpClient.Builder()); //RetrofitUrlManager 初始化
         builder.connectTimeout(apiConfig.getConnectTimeout(), TimeUnit.MILLISECONDS)
                 .readTimeout(apiConfig.getReadTimeout(), TimeUnit.MILLISECONDS)
                 .writeTimeout(apiConfig.getWriteTimeout(), TimeUnit.MILLISECONDS)

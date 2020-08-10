@@ -9,16 +9,10 @@ import androidx.lifecycle.LifecycleRegistry;
 import java.lang.reflect.ParameterizedType;
 
 /**
- * ApiService的基类
- * <p>
+ * ApiService的基类，用于管理TService和接入生命周期
+ * 若使用此类作为 {@link LifecycleOwner}
+ * 适合最复杂的业务场景，多个service同时存在的时候，可以任意中止某个，或者在任意类中调用网络请求，这个时候就需要手动调用 {@link #cancelTask()} 进行取消
  * TService是定义的Api接口
- * <p>
- * <p>
- * (1)ApiServiceBase默认的构造函数使用的ApiServiceImpl是ApiServiceImpl.getInstance(),其配置参数是在ApplicationBase中的initApiService配置的
- * (2)如果有多个BaseUrl怎么办?使用第二个构造函数ApiServiceBase(ApiServiceImpl apiServiceImpl)
- * <p>
- * <p>
- * Created by coffeexmg on 16/8/26.
  */
 public abstract class ApiServiceBase<TService> implements LifecycleOwner {
 
@@ -31,19 +25,8 @@ public abstract class ApiServiceBase<TService> implements LifecycleOwner {
         return mApiService;
     }
 
-
     /**
-     * 默认的构造函数采用的ApiServiceImpl是ApiServiceImpl.getInstance(),其配置参数是在ApplicationBase中的initApiService配置的
-     */
-    public ApiServiceBase() {
-        init();
-        mApiService = (TService) ApiServiceImpl.getInstance().getService(mApiServiceClass);
-    }
-
-    /**
-     * 该构造函数是需要提供ApiServiceImpl
-     * 主要是为了需要多个BaseUrl的时候使用
-     * ApiServiceImpl apiServiceImpl = ApiServiceImpl.createApiServiceImpl 提供
+     * 通过 ApiServiceManager 获得全局单例 ApiServiceImpl
      *
      * @param apiServiceImpl
      */

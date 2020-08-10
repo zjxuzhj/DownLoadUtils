@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * <p>
  * Class used to calculate the approximate bandwidth of a user's connection.
- * </p>
- * <p>
  * This class notifies all subscribed {@link ConnectionClassStateChangeListener} with the new
  * ConnectionClass when the network's ConnectionClass changes.
- * </p>
  */
 public class ConnectionClassManager {
 
