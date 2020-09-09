@@ -99,6 +99,4 @@ public class LoggerConfigModel implements Serializable {
     public void setRootPath(String rootPath) {
         this.rootPath = rootPath;
     }
-
-
 }

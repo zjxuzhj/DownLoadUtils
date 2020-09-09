@@ -1,13 +1,20 @@
 package com.hongjay.locallog.log;
 
 import android.os.Environment;
+import android.util.Log;
+
+import com.hongjay.locallog.logger.ButLogger;
+import com.hongjay.locallog.logger.LogLevel;
 import com.hongjay.locallog.service.LoggerHandler;
 import com.hongjay.locallog.util.TimeFormatUtil;
 import com.hongjay.locallog.util.ZipUtils;
-import com.orhanobut.logger.LogLevel;
-import com.orhanobut.logger.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Log日志工具，封装logger
@@ -19,33 +26,86 @@ public class LogUtil {
      * @param isLogEnable 是否打印log
      */
     public static void init(boolean isLogEnable) {
-        Logger.init("LogHttpInfo")
+        ButLogger.init("melot")
                 .hideThreadInfo()
                 .logLevel(isLogEnable ? LogLevel.FULL : LogLevel.NONE)
                 .methodOffset(2);
     }
 
     public static void d(String message) {
-        Logger.d(message);
+        ButLogger.d(message);
+    }
+
+    public static void d(String tag, String message) {
+        ButLogger.setTag(tag);
+        ButLogger.d(message);
+    }
+
+    /**
+     * 使用android原生log，不打印堆栈，但是还是会遵循是否在release下打印
+     *
+     * @param message
+     */
+    public static void dd(String tag, String message) {
+        if (ButLogger.getSetting().isLogEnable()) {
+            Log.d(tag, message);
+        }
     }
 
     public static void i(String message) {
-        Logger.i(message);
+        ButLogger.i(message);
+    }
+
+    public static void i(String tag, String message) {
+        ButLogger.setTag(tag);
+        ButLogger.i(message);
+    }
+
+    public static void ii(String tag, String message) {
+        if (ButLogger.getSetting().isLogEnable()) {
+            Log.i(tag, message);
+        }
     }
 
     public static void w(String message, Throwable e) {
         String info = e != null ? e.toString() : "null";
-        Logger.w(message + "：" + info);
+        ButLogger.w(message + "：" + info);
+    }
+
+    public static void w(String tag, String message, Throwable e) {
+        String info = e != null ? e.toString() : "null";
+        ButLogger.t(tag).w(message + "：" + info);
+    }
+
+    public static void ww(String tag, String message) {
+        if (ButLogger.getSetting().isLogEnable()) {
+            Log.w(tag, message);
+        }
     }
 
     public static void e(String message, Throwable e) {
-        Logger.e(e, message);
+        ButLogger.e(e, message);
+    }
+
+    public static void e(String tag, String message, Throwable e) {
+        ButLogger.setTag(tag);
+        ButLogger.e(e, message);
+    }
+
+    public static void ee(String tag, String message, Throwable e) {
+        if (ButLogger.getSetting().isLogEnable()) {
+            Log.e(tag, message, e);
+        }
     }
 
     public static void json(String json) {
-        Logger.json(json);
+        ButLogger.json(json);
     }
 
+    public static void json(String tag, String json) {
+        ButLogger.setTag(tag);
+        ButLogger.json(json);
+    }
 
     /**
      * 压缩日志文件

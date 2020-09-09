@@ -26,7 +26,7 @@ public class ServiceLoggerBuilder {
     private ServiceLogger serviceLogger;
     private StringBuilder mMessage = new StringBuilder();
     //默认的崩溃日志目录
-    private static final String DEFAULT_CRASH_LOG_FOLDER_PATH = "yun/crash";
+    private static final String DEFAULT_CRASH_LOG_FOLDER_PATH = "hongjay/crash";
     private ServiceLogger crashLogger;
     //异常日志类型
     public static final int CATCH_LOG = 3;

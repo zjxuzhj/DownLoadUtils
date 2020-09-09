@@ -1,6 +1,5 @@
 package com.hongjay.locallog.log;
 
-
 import com.hongjay.locallog.util.TimeFormatUtil;
 
 import java.io.BufferedWriter;
@@ -13,13 +12,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * 日志输出类
  */
 public abstract class Logger implements HttpLoggingInterceptor.Logger {
-    //是否打印日志
+    //是否打印sd卡日志
     private boolean isOutPut;
     //日志存放文件夹
     private File logFolder;
     //日志保存天数
     private int saveDays;
-    //是否打印日志
+    //是否打印logcat日志
     private boolean isPrint;
     private File logFile;
 

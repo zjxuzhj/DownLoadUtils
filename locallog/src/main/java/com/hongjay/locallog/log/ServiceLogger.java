@@ -20,7 +20,7 @@ public class ServiceLogger extends Logger {
     protected ServiceLogger(boolean isOutPut, File logFolder, int saveDays, boolean isPrint, boolean isPrintStack) {
         super(isOutPut, logFolder, saveDays, isPrint);
         this.isPrintStack = isPrintStack;
-        stackMap = new HashMap<String, String>();
+        stackMap = new HashMap<>();
     }
 
     @Override

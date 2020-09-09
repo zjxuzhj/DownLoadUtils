@@ -38,17 +38,16 @@ public class LocalLogger {
         public static LocalLogger builder = new LocalLogger();
     }
 
-
     public LocalLogger() {
     }
 
     /**
-     * @param outPut
-     * @param print
-     * @param saveDays
-     * @param catchException
-     * @param printStack
-     * @param isLogCat
+     * @param outPut         是否输出sd卡
+     * @param print          是否打印logcat
+     * @param saveDays       保存天数
+     * @param catchException 是否拦截崩溃
+     * @param printStack     是否打印堆栈信息
+     * @param isLogCat       是否保存logcat日志
      * @param maxCache       单位M
      * @param context
      * @param rootPath       根目录路径
@@ -56,8 +55,8 @@ public class LocalLogger {
     public static void init(boolean outPut, boolean print, int saveDays, boolean catchException
             , boolean printStack, boolean isLogCat, int maxCache, String rootPath, Context context) {
         LoggerHolder.builder.loggerConfigModel = new LoggerConfigModel(outPut, print, saveDays, catchException, printStack, isLogCat, maxCache, rootPath);
-        LoggerHolder.builder.httpLoggingInterceptor = HttpLoggingInterceptorBuilder.build().print(LoggerHolder.builder.loggerConfigModel.isPrint())
-                .outPut(LoggerHolder.builder.loggerConfigModel.isOutPut()).logFolder(rootPath + httpLogPath).saveDays(7)
+        LoggerHolder.builder.httpLoggingInterceptor = HttpLoggingInterceptorBuilder.build().print(print)
+                .outPut(outPut).logFolder(rootPath + httpLogPath).saveDays(7)
                 .buildInterceptor();
         if (context != null && LoggerHolder.builder.mMessenger == null
                 && !LoggerHolder.builder.isInit) {
@@ -81,7 +80,7 @@ public class LocalLogger {
             }
         }
 
-        ServiceLoggerBuilder.build().logFolder(rootPath + "/crash").catchCrash(LoggerHolder.builder.loggerConfigModel.isCatchException())
+        ServiceLoggerBuilder.build().logFolder(rootPath + "/crash").catchCrash(catchException)
                 .print(true)
                 .outPut(true)
                 .printStack(true)
@@ -170,9 +169,7 @@ public class LocalLogger {
                 e.printStackTrace();
             }
         }
-
     }
-
 
     /**
      * 打印异常日志
@@ -196,7 +193,6 @@ public class LocalLogger {
         }
     }
 
-
     /**
      * 调试模式下打印异常日志
      * 非调试模式下不打印
@@ -210,7 +206,6 @@ public class LocalLogger {
             logCatch(e, msg);
         }
     }
-
 
     /**
      * 打印异常日志并上传
@@ -240,7 +235,6 @@ public class LocalLogger {
         }
     }
 
-
     /**
      * 格式化日志信息
      *
@@ -257,7 +251,6 @@ public class LocalLogger {
         return stringBuffer.toString();
     }
 
-
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -273,7 +266,6 @@ public class LocalLogger {
                 e.printStackTrace();
             }
             HttpLoggingInterceptorBuilder.build().setMessenger(mMessenger);
-
         }
 
         @Override
@@ -285,11 +277,10 @@ public class LocalLogger {
         }
     };
 
-
     /**
      * 销毁
      */
-    public void deStroy(Context context) {
+    public void deStory(Context context) {
         if (mMessenger != null) {
             Message msg = Message.obtain();
             msg.what = LoggerService.CLOSE_SERVICE;
@@ -303,7 +294,6 @@ public class LocalLogger {
         }
         HttpLoggingInterceptorBuilder.build().setMessenger(null);
         httpLoggingInterceptor = null;
-
     }
 
     /**
@@ -330,6 +320,4 @@ public class LocalLogger {
             }
         }
     }
-
-
 }

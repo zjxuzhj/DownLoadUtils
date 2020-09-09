@@ -171,7 +171,6 @@ public class LoggerHandler extends Handler {
         }, 50 * 1000 * 60);
     }
 
-
     /**
      * 定期清理logcat日志
      */
@@ -185,7 +184,6 @@ public class LoggerHandler extends Handler {
         }
     }
 
-
     /**
      * 检测日志容量是否超过最大值
      */
@@ -198,8 +196,5 @@ public class LoggerHandler extends Handler {
                 }
             }
         }
-
     }
-
-
 }
