@@ -129,7 +129,7 @@ ext {
             "mockito-core"                 : "org.mockito:mockito-core:1.+",
             "timber"                       : "com.jakewharton.timber:timber:4.7.1",
             "logger"                       : "com.orhanobut:logger:2.1.1",
-            "locallog"                     : "com.hongjay:locallog:1.0.7",
+            "locallog"                     : "com.hongjay:locallog:1.1.0",
             "loggingInterceptor"           : "com.squareup.okhttp3:logging-interceptor:3.10.0",
             "leakcanary2"                  : "com.squareup.leakcanary:leakcanary-android:$version.leakCanary2",
 
