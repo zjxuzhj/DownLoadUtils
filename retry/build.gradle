@@ -28,7 +28,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api Deps.locallog
+//    api Deps.locallog
+    api "com.melot.jjyp:locallog:1.1.0"
     api Deps.appcompat
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
@@ -51,6 +52,6 @@ dependencies {
 ext {
     GROUP = 'com.melot.jjyp'
     POM_ARTIFACT_ID = 'retry'
-    VERSION_NAME = '1.0.0'
+    VERSION_NAME = '1.1.0'
     PUBLISH_TYPE = 'aar'
 }
