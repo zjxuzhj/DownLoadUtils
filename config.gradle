@@ -160,6 +160,8 @@ static def addRepository(RepositoryHandler handler) {
     handler.maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     handler.maven { url 'http://maven.aliyun.com/nexus/content/repositories/central' }
     handler.maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    handler.maven { url 'http://10.0.4.34:8081/repository/jjyp_release/' }
+    handler.maven { url 'http://10.0.4.34:8081/repository/jjyp_snapshots/' }
     handler.maven { url "https://jitpack.io" }
 }
 

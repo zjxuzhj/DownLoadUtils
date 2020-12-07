@@ -1,0 +1,108 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+def isRelease() {
+    return hasProperty('VERSION_NAME') && !VERSION_NAME.contains("SNAPSHOT")
+}
+
+def isMavenLocal() {
+    return hasProperty('mavenLocal') && (mavenLocal == "true" || mavenLocal)
+}
+
+def getReleaseRepositoryUrl() {
+    if (isMavenLocal()) {
+        println ('mavenLocal')
+        group = GROUP
+        version = VERSION_NAME
+        return '../repo'
+    }
+//    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL : "http://10.4.255.180:8081/nexus/content/repositories/android-releases/"
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL : "http://10.0.4.34:8081/repository/jjyp_release/"
+}
+
+def getSnapshotRepositoryUrl() {
+    if (isMavenLocal()) {
+        println ('mavenLocal')
+        group = GROUP
+        version = VERSION_NAME
+        return '../repo-debug'
+    }
+//    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL : "http://10.4.255.180:8081/nexus/content/repositories/android-snapshots/"
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL : "http://10.0.4.34:8081/repository/jjyp_snapshots/"
+}
+
+def getRepositoryUsername() {
+    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : "deployment"
+}
+
+def getRepositoryPassword() {
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : "deployment123"
+}
+
+def getArtifactId() {
+    if (hasProperty('POM_ARTIFACT_ID')) {
+        return POM_ARTIFACT_ID
+    }
+    return project.name.toLowerCase()
+}
+
+task generateSourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+    from sourceSets.main.java.srcDirs
+    archiveClassifier.set('sources')
+}
+
+task javadocs(type: Javadoc) {
+    source = sourceSets.main.java.srcDirs
+}
+
+task javadocsJar(type: Jar, dependsOn: javadocs) {
+    archiveClassifier.set('javadoc')
+    from javadocs.destinationDir
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = GROUP
+            artifactId = getArtifactId()
+            version = VERSION_NAME
+
+            from components.java
+
+//            artifact generateSourcesJar
+//            artifact javadocsJar
+        }
+    }
+
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            if (isRelease()) {
+                println("is release repo")
+                url = getReleaseRepositoryUrl()
+            } else {
+                println("is snapshot repo")
+                url = getSnapshotRepositoryUrl()
+            }
+
+            if (!isMavenLocal()) {
+                println ('not local')
+                credentials {
+                    username = getRepositoryUsername()
+                    password = getRepositoryPassword()
+                }
+            }
+        }
+    }
+}
+
+//signing {
+//    sign publishing.publications.maven
+//}
+
+javadoc {
+    if (JavaVersion.current().isJava8Compatible() || JavaVersion.current().isJava7Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
