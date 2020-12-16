@@ -7,11 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import androidx.annotation.Keep
 import java.lang.Exception
 
 /**
  * 网络监听
  */
+@Keep
 class NetworkBroadcastReceiver : BroadcastReceiver() {
 
     companion object {

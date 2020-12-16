@@ -1,7 +1,9 @@
 package com.hongjay.retry
 
+import androidx.annotation.Keep
 import kotlin.reflect.KFunction
 
+@Keep
 class RetryBean<T>(
     val t: T,
     var kFunction: KFunction<*>,

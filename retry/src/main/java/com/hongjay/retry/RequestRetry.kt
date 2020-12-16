@@ -3,6 +3,7 @@ package com.hongjay.retry
 
 import android.content.Context
 import android.content.IntentFilter
+import androidx.annotation.Keep
 import com.hongjay.locallog.log.LogUtil
 import java.lang.ref.WeakReference
 import java.util.concurrent.ArrayBlockingQueue
@@ -16,7 +17,7 @@ import kotlin.reflect.full.declaredMemberFunctions
 /**
  * 请求重试类
  */
-
+@Keep
 class RequestRetry private constructor() : INetworkListener {
 
     /**

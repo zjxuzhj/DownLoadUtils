@@ -1,10 +1,12 @@
 package com.hongjay.retry
 
+import androidx.annotation.Keep
 import java.lang.Exception
 
 /**
  * 增加异常重试类型
  */
+@Keep
 open class RetryIfException<T : Exception, E : Any> {
     /**
      * 重试条件

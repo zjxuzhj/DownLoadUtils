@@ -1,10 +1,12 @@
 package com.hongjay.retry
 
+import androidx.annotation.Keep
 import com.hongjay.locallog.log.LogUtil
 
 /**
  * 循坏线程
  */
+@Keep
 class LooperRetryRequestRunnable : Runnable {
     override fun run() {
         while (true) {

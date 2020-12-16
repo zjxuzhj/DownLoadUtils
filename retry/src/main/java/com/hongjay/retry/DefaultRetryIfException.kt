@@ -1,5 +1,6 @@
 package com.hongjay.retry
 
+import androidx.annotation.Keep
 import com.hongjay.locallog.log.LogUtil
 import java.lang.reflect.InvocationTargetException
 import java.net.ConnectException
@@ -7,6 +8,7 @@ import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
+@Keep
 class DefaultRetryIfException : RetryIfException<Exception, Any>() {
     private val socketExceptionSet: MutableSet<Class<*>> = mutableSetOf(
         SocketTimeoutException::class.java,

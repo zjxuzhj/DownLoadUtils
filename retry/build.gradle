@@ -52,6 +52,6 @@ dependencies {
 ext {
     GROUP = 'com.melot.jjyp'
     POM_ARTIFACT_ID = 'retry'
-    VERSION_NAME = '1.1.0'
+    VERSION_NAME = '1.2.0'
     PUBLISH_TYPE = 'aar'
 }
