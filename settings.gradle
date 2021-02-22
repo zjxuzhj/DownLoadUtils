@@ -1,1 +1,1 @@
-include ':locallog', ':api', ':download', ':retry'
+include ':locallog', ':api', ':download', ':retry', 'imagepicker'
